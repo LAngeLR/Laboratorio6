@@ -24,6 +24,7 @@ public class CancionDao {
              ResultSet rs = stmt.executeQuery("select * from tour where nombre_tour like '%world%'")) {
 
             while (rs.next()) {
+
                 int id = rs.getInt(1);
                 String nombre = rs.getString(2);
                 String banda = rs.getString(3);
@@ -34,10 +35,7 @@ public class CancionDao {
         } catch (SQLException e) {
             System.out.println("No se pudo realizar la busqueda");
         }
-        return listaCancionesRecomendadas:
-
-
-        ;
+        return listaCancionesRecomendadas;
     }
 
 
