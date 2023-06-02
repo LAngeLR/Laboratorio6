@@ -1,37 +1,38 @@
 package Beans;
 
 public class Cancion{
-    private int cancionId;
-    private String nombreCancion;
-    private String bandaCancion;
 
-    public Cancion(int cancionId, String nombreCancion, String bandaCancion) {
-        this.cancionId = cancionId;
-        this.nombreCancion = nombreCancion;
-        this.bandaCancion = bandaCancion;
+    private String nombre;
+    private int idCancion;
+    private String banda;
+
+    public Cancion(String nombre, int idCancion, String banda) {
+        this.nombre = nombre;
+        this.idCancion = idCancion;
+        this.banda = banda;
     }
 
-    public int getCancionId() {
-        return cancionId;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setCancionId(int cancionId) {
-        this.cancionId = cancionId;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getNombreCancion() {
-        return nombreCancion;
+    public int getIdCancion() {
+        return idCancion;
     }
 
-    public void setNombreCancion(String nombreCancion) {
-        this.nombreCancion = nombreCancion;
+    public void setIdCancion(int idCancion) {
+        this.idCancion = idCancion;
     }
 
-    public String getBandaCancion() {
-        return bandaCancion;
+    public String getBanda() {
+        return banda;
     }
 
-    public void setBandaCancion(String bandaCancion) {
-        this.bandaCancion = bandaCancion;
+    public void setBanda(String banda) {
+        this.banda = banda;
     }
 }

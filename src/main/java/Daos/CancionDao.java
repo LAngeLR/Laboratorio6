@@ -1,44 +1,38 @@
 package Daos;
 
 import Beans.Cancion;
-
 import java.sql.*;
 import java.util.ArrayList;
 
 public class CancionDao {
-
     private static String user = "root";
     private static String pass = "root";
     private static String url = "jdbc:mysql://localhost:3306/lab6sw1?serverTimezone=America/Lima";
+    public ArrayList<Cancion> listarCancion(){
+        ArrayList<Cancion> lista = new ArrayList<>();
 
-
-    public ArrayList<Cancion> obtenerListaCanciones(){
-        try {
+        try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
+        }catch(ClassNotFoundException e){
             e.printStackTrace();
         }
-        ArrayList<Cancion> listaCancionesRecomendadas = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("select * from tour where nombre_tour like '%world%'")) {
 
-            while (rs.next()) {
+        try(Connection connection = DriverManager.getConnection(url,user,pass); Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery("select c.idcancion,c.nombre_cancion,c.banda, count(r.idreproduccion) from cancion c\n" +
+                    "inner join reproduccion r on c.idcancion = r.cancion_idcancion\n" +
+                    "\n" +
+                    "group by cancion_idcancion having count(r.idreproduccion) >2 order by count(r.idreproduccion) desc")){
 
-                int id = rs.getInt(1);
-                String nombre = rs.getString(2);
-                String banda = rs.getString(3);
-
-                listaCancionesRecomendadas.add(new Cancion(id,nombre,banda));
+            while(resultSet.next()){
+                int id = resultSet.getInt(1);
+                String nombre = resultSet.getString(2);
+                String banda = resultSet.getString(3);
+                lista.add(new Cancion(nombre,id,banda));
             }
-
-        } catch (SQLException e) {
+        }catch (SQLException e){
             System.out.println("No se pudo realizar la busqueda");
         }
-        return listaCancionesRecomendadas;
+
+        return lista;
     }
-
-
-
-
 }
